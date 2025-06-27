@@ -1,0 +1,282 @@
+﻿@{
+    ViewData["Title"] = "Admin Home";
+    // List of admin panel links (from _NavFooter admin dropdown)
+    var adminLinks = new[] {
+        new { Text = "Roles", Action = "GiveRole", Controller = "Account", Icon = "fa-user-shield" },
+        new { Text = "Cities", Action = "Index", Controller = "City", Icon = "fa-city" },
+        new { Text = "Countries", Action = "Index", Controller = "Countries", Icon = "fa-flag" },
+        new { Text = "Favorites", Action = "Index", Controller = "Favorites", Icon = "fa-heart" },
+        new { Text = "Invoices", Action = "Index", Controller = "Invoice", Icon = "fa-file-invoice-dollar" },
+        new { Text = "Payments", Action = "Index", Controller = "Payment", Icon = "fa-credit-card" },
+        new { Text = "Payment Methods", Action = "Index", Controller = "PaymentMethods", Icon = "fa-money-check-alt" },
+        new { Text = "Promo Codes", Action = "Index", Controller = "PromoCode", Icon = "fa-ticket-alt" },
+        new { Text = "Reports", Action = "Index", Controller = "Report", Icon = "fa-chart-line" },
+        new { Text = "Hotels", Action = "Index", Controller = "Hotel", Icon = "fa-hotel" },
+        new { Text = "Reviews", Action = "Index", Controller = "Reviews", Icon = "fa-star" },
+        new { Text = "Rooms", Action = "Index", Controller = "Room", Icon = "fa-bed" },
+        new { Text = "Used Promo Codes", Action = "Index", Controller = "UsedPromoCode", Icon = "fa-tags" }
+    };
+}
+
+<style>
+    .admin-dashboard-bg {
+        background: linear-gradient(135deg, #f8fafd 0%, #e3eafc 100%);
+        min-height: 100vh;
+    }
+
+    .admin-sidebar {
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 4px 24px rgba(26, 55, 77, 0.08);
+        padding: 2rem 1.2rem 1.2rem 1.2rem;
+        min-width: 220px;
+        max-width: 240px;
+        height: 90vh;
+        margin-top: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+        .admin-sidebar .sidebar-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1A374D;
+            margin-bottom: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        .admin-sidebar .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.08rem;
+            color: #406882;
+            font-weight: 500;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.3rem;
+            transition: background 0.18s, color 0.18s;
+            text-decoration: none;
+        }
+
+            .admin-sidebar .nav-link.active, .admin-sidebar .nav-link:hover {
+                background: #e3eafc;
+                color: #1A374D;
+            }
+
+            .admin-sidebar .nav-link i {
+                font-size: 1.2rem;
+                min-width: 22px;
+                text-align: center;
+            }
+
+    .admin-main {
+        flex: 1;
+        margin-left: 2.5rem;
+        margin-top: 2.5rem;
+    }
+
+    .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2.2rem;
+    }
+
+        .admin-header .admin-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1A374D;
+            letter-spacing: 1px;
+        }
+
+        .admin-header .admin-date {
+            font-size: 1.1rem;
+            color: #406882;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+    .admin-cards {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .admin-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 2px 12px rgba(26, 55, 77, 0.06);
+        padding: 1.5rem 2.2rem;
+        min-width: 220px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-card-title {
+        font-size: 1.1rem;
+        color: #406882;
+        font-weight: 600;
+        margin-bottom: 0.7rem;
+    }
+
+    .admin-card-value {
+        font-size: 2.1rem;
+        font-weight: 700;
+        color: #1A374D;
+        margin-bottom: 0.2rem;
+    }
+
+    .admin-card-desc {
+        font-size: 0.98rem;
+        color: #888;
+    }
+
+    .admin-table {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 2px 12px rgba(26, 55, 77, 0.06);
+        padding: 1.5rem 2rem;
+        width: 100%;
+    }
+
+        .admin-table th, .admin-table td {
+            padding: 0.7rem 1rem;
+            font-size: 1rem;
+            color: #1A374D;
+        }
+
+        .admin-table th {
+            font-weight: 700;
+            background: #f8fafd;
+            border-bottom: 2px solid #e3eafc;
+        }
+
+        .admin-table tr:not(:last-child) td {
+            border-bottom: 1px solid #e3eafc;
+        }
+    @@media (max-width: 900px) {
+        .admin-cards
+
+    {
+        flex-direction: column;
+    }
+
+    .admin-main {
+        margin-left: 0;
+    }
+
+    .admin-sidebar {
+        min-width: 100px;
+        max-width: 100%;
+    }
+
+    }
+</style>
+
+<div class="admin-dashboard-bg d-flex">
+    <div class="admin-sidebar">
+        <div class="sidebar-title mb-4">
+            <i class="fa-solid fa-user-shield me-2"></i> Admin Panel
+        </div>
+        @foreach (var link in adminLinks)
+        {
+            <a class="nav-link" href="@Url.Action(link.Action, link.Controller)">
+                <i class="fa @link.Icon"></i> @link.Text
+            </a>
+        }
+    </div>
+    <div class="admin-main flex-grow-1">
+        <div class="admin-header">
+            <div class="admin-title">Orders <span style="font-size:1.3rem;">😍</span></div>
+            <div class="admin-date">
+                <i class="fa-regular fa-calendar"></i> @DateTime.Now.ToString("MMMM dd, yyyy")
+            </div>
+        </div>
+        <div class="admin-cards">
+            <div class="admin-card">
+                <div class="admin-card-title">New Orders</div>
+                <div class="admin-card-value">245</div>
+                <div class="admin-card-desc">Impression - 20%</div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-title">Pending Orders</div>
+                <div class="admin-card-value">123</div>
+                <div class="admin-card-desc">Impression - 11%</div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-title">Delivered Orders</div>
+                <div class="admin-card-value">150</div>
+                <div class="admin-card-desc">Impression - 18%</div>
+            </div>
+        </div>
+        <div class="admin-table mt-4">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Ordered Date</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#123245</td>
+                        <td>14-12-2020</td>
+                        <td>Decorative box</td>
+                        <td>125 USD</td>
+                        <td><span style="color:#1A374D;font-weight:600;">Delivered</span></td>
+                    </tr>
+                    <tr>
+                        <td>#678457</td>
+                        <td>13-12-2020</td>
+                        <td>Plantation box</td>
+                        <td>120 USD</td>
+                        <td><span style="color:#dc3545;font-weight:600;">Cancelled</span></td>
+                    </tr>
+                    <tr>
+                        <td>#123245</td>
+                        <td>12-12-2020</td>
+                        <td>Camera film</td>
+                        <td>125 USD</td>
+                        <td><span style="color:#1A374D;font-weight:600;">Delivered</span></td>
+                    </tr>
+                    <tr>
+                        <td>#123245</td>
+                        <td>12-12-2020</td>
+                        <td>Camera film</td>
+                        <td>156 USD</td>
+                        <td><span style="color:#1A374D;font-weight:600;">Delivered</span></td>
+                    </tr>
+                    <tr>
+                        <td>#879415</td>
+                        <td>10-12-2020</td>
+                        <td>Visual face</td>
+                        <td>120 USD</td>
+                        <td><span style="color:#FFA500;font-weight:600;">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>#723246</td>
+                        <td>11-11-2020</td>
+                        <td>Decorative box</td>
+                        <td>180 USD</td>
+                        <td><span style="color:#1A374D;font-weight:600;">Delivered</span></td>
+                    </tr>
+                    <tr>
+                        <td>#789245</td>
+                        <td>10-11-2020</td>
+                        <td>Decorative box</td>
+                        <td>190 USD</td>
+                        <td><span style="color:#FFA500;font-weight:600;">Pending</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

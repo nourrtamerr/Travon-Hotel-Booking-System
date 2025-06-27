@@ -1,0 +1,399 @@
+﻿@model IEnumerable<MVCBookingFinal_YARAB_.Models.AppUser>
+@inject UserManager<AppUser> manager;
+
+@{
+
+    ViewData["Title"] = "Manage Users";
+
+
+
+    Layout = "_AdminHome";
+}
+<style>
+
+
+
+
+    .users-container {
+    
+        padding: 1rem;
+        overflow: hidden;
+        width: 100%;     
+        height: 100vh;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+        border: none;
+        border-radius: 12px;
+        background: #ffffff;
+    }
+
+
+
+    .page-title {
+        background: #1a374d;
+        color: white;
+        padding: 25px 30px;
+        margin: 0;
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    /* .table-container { */
+    /*     padding: 20px 30px; */
+    /*     overflow-x: auto; */
+      
+    /* } */
+
+    .table-container {
+        /* padding: 20px 30px; */
+        /* overflow-x: auto; */
+        overflow: hidden;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .users-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+
+
+        .users-table td {
+            padding: 20px 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+
+        .users-table tr:hover td {
+            background: #f8f9fa;
+        }
+
+    .role-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+        .role-badge.admin {
+            background: #1a374d;
+            color: white;
+        }
+
+        .role-badge.user {
+            background: #e9ecef;
+            color: #666;
+        }
+
+    .admin-action-btn {
+        width: 170px;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-make-admin, .btn-remove-admin {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-make-admin {
+        background: #1a374d;
+        color: white;
+    }
+
+        .btn-make-admin:hover {
+            background: #142c3c;
+            transform: translateY(-1px);
+        }
+
+    .btn-remove-admin {
+        background: #dc3545;
+        color: white;
+    }
+
+        .btn-remove-admin:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+    @@media (max-width: 1200px) {
+        .table-container {
+            padding: 15px;
+        }
+
+        .users-table {
+            font-size: 14px;
+        }
+    }
+
+
+    .table th:first-child {
+ 
+        border-left: 1px solid #e9ecef;
+    }
+
+    .table th:last-child {
+       
+        border-right: 1px solid #e9ecef;
+    }
+
+
+ 
+
+
+    .table tbody tr {
+        transition: all 0.2s ease;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+        }
+
+
+    .th-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .th-icon {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .users-table thead {
+        background: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .users-table th {
+        padding: 16px 20px;
+        /* color: #1a374d; */
+        font-weight: 600;
+        text-align: left;
+        font-size: 14px;
+        white-space: nowrap;
+
+
+        color: #495057;
+        background: #f8f9fa;
+        position: sticky;
+        top: 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+</style>
+<div class="users-container">
+
+  
+
+    <div class="table-container">
+        <table class="users-table table-striped table-rounded ">
+            <thead>
+                <tr>
+                    <th>
+                                    <div class="th-content">
+                                        <i class="fas fa-hashtag th-icon" style="font-size:20px"></i>
+                            ID
+                        </div>
+                    </th>
+                    <th>
+                                    <div class="th-content">
+                                        <i class="fas fa-user th-icon" style="font-size:20px"></i>
+                            First Name
+                       </div>
+                    </th>
+                    <th>
+                                    <div class="th-content">
+                                        <i class="fas fa-user th-icon" style="font-size:20px"></i>
+                            Last Name
+                        </div>
+                    </th>
+                    <th>
+                                    <div class="th-content">
+                                        <i class="fas fa-at th-icon" style="font-size:20px"></i>
+                            Username
+                     </div>
+                    </th>
+                    <th>
+                                    <div class="th-content">
+                                        <i class="fas fa-calendar th-icon" style="font-size:20px"></i>
+                            Date of Birth
+                      </div>
+                    </th>
+                    <th>
+                                    <div class="th-content">
+                                        <i class="fas fa-envelope th-icon" style="font-size:20px"></i>
+                            Email
+                      </div>
+                    </th>
+                    <th>
+                                    <div class="th-content">
+                                        <i class="fas fa-phone th-icon" style="font-size:20px"></i>
+                            Phone
+                      </div>
+                    </th>
+                    <th>
+                        <div class="th-content">
+                                        <i class="fas fa-user-tag th-icon" style="font-size:20px"></i>
+                            Role
+                        </div>
+                    </th>
+                    <th>
+                                    <div class="th-content">
+                                        <i class="fas fa-cog th-icon" style="font-size:20px"></i>
+                            Actions
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>#@item.Id</td>
+                                    <td>@item.FirstName</td>
+                                    <td>@item.LastName</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.DateOfBirth.ToShortDateString()</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td class="role-cell">
+                                        @if (await manager.IsInRoleAsync(item, "ADMIN"))
+                                        {
+                                            <span class="role-badge admin">Admin</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="role-badge user">User</span>
+                                        }
+                                    </td>
+                                    <td>
+
+                                        @if (!await manager.IsInRoleAsync(item, "ADMIN"))
+                                        {
+                   
+
+                                <button type="button"
+                                        class="admin-action-btn btn-make-admin"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#confirmAdminModal"
+                                        data-userid="@item.Id"
+                                        data-username="@item.UserName"
+                                        data-action="make">
+                                    <i class="fas fa-user-shield"></i>
+                                    Make Admin
+                                </button>
+                                        }
+
+
+                                        else
+                                        {
+                                  
+
+                                <button type="button"
+                                        class="admin-action-btn btn-remove-admin"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#confirmAdminModal"
+                                        data-userid="@item.Id"
+                                        data-username="@item.UserName"
+                                        data-action="remove">
+                                    <i class="fas fa-user-times"></i>
+                                    Remove Admin
+                                </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="confirmAdminModal" tabindex="-1" aria-labelledby="confirmAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="adminActionForm" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmAdminModalLabel">Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="modalUserId" />
+                    <p id="modalMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn" id="modalConfirmBtn"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var confirmModal = document.getElementById('confirmAdminModal');
+            confirmModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var userId = button.getAttribute('data-userid');
+                var username = button.getAttribute('data-username');
+                var action = button.getAttribute('data-action');
+                var modalMessage = document.getElementById('modalMessage');
+                var modalUserId = document.getElementById('modalUserId');
+                var modalConfirmBtn = document.getElementById('modalConfirmBtn');
+                var adminActionForm = document.getElementById('adminActionForm');
+
+                modalUserId.value = userId;
+
+                if (action === 'make') {
+                    modalMessage.textContent = `Are you sure you want to make "${username}" an admin?`;
+                    modalConfirmBtn.textContent = 'Yes, Make Admin';
+                    modalConfirmBtn.className = 'btn btn-success';
+                    adminActionForm.action = '@Url.Action("MakeAdmin", "Account")';
+                } else {
+                    modalMessage.textContent = `Are you sure you want to remove admin rights from "${username}"?`;
+                    modalConfirmBtn.textContent = 'Yes, Remove Admin';
+                    modalConfirmBtn.className = 'btn btn-danger';
+                    adminActionForm.action = '@Url.Action("RemoveAdmin", "Account")';
+                }
+            });
+        });
+    </script>
+
+
+

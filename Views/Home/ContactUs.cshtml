@@ -1,0 +1,326 @@
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<style>
+    .hero-contact {
+        background: linear-gradient(135deg, #1A374D 0%, #406882 100%);
+        padding: 100px 0;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+        opacity: 0.3;
+    }
+    
+    .contact-form {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        margin-top: -80px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .contact-info-card {
+        background: linear-gradient(135deg, #1A374D, #406882);
+        color: white;
+        border-radius: 20px;
+        padding: 40px;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .contact-info-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        transform: rotate(45deg);
+    }
+    
+    .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        font-size: 1.5rem;
+    }
+    
+    .form-control {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 15px 20px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #1A374D;
+        box-shadow: 0 0 0 0.2rem rgba(26, 55, 77, 0.25);
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #1A374D, #406882);
+        border: none;
+        border-radius: 10px;
+        padding: 15px 40px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(26, 55, 77, 0.3);
+    }
+    
+    .section-title {
+        color: #1A374D;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    
+    .section-subtitle {
+        color: #406882;
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+    
+    .faq-item {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+    }
+    
+    .faq-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .faq-question {
+        color: #1A374D;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    .faq-answer {
+        color: #406882;
+        margin: 0;
+    }
+</style>
+
+
+<body class="home-page">
+
+<!-- Hero Section -->
+<div class="hero-contact">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="display-4 fw-bold mb-4">Get in Touch</h1>
+                <p class="lead mb-4">
+                    We're here to help you plan your perfect trip. Reach out to our friendly team 
+                    for any questions, support, or travel assistance you need.
+                </p>
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="fa-solid fa-headset me-3" style="font-size: 2rem;"></i>
+                    <span class="h5 mb-0">Available 24/7 for your convenience</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Form & Info Section -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="contact-form">
+                <h2 class="section-title h3">Send us a Message</h2>
+                <p class="section-subtitle">Fill out the form below and we'll get back to you within 24 hours.</p>
+                
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="firstName" class="form-label fw-semibold" style="color: #1A374D;">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="lastName" class="form-label fw-semibold" style="color: #1A374D;">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-semibold" style="color: #1A374D;">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="phone" class="form-label fw-semibold" style="color: #1A374D;">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="Phone Number">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <label for="subject" class="form-label fw-semibold" style="color: #1A374D;">Subject</label>
+                        <select class="form-control" id="subject" required>
+                            <option value="">Select a topic</option>
+                            <option value="booking">Booking Assistance</option>
+                            <option value="support">Technical Support</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="partnership">Partnership Inquiry</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="message" class="form-label fw-semibold" style="color: #1A374D;">Message</label>
+                        <textarea class="form-control" id="message" rows="6" placeholder="Tell us how we can help you..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-paper-plane me-2"></i>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="contact-info-card">
+                <h3 class="mb-4">Contact Information</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-1">Phone</h6>
+                        <p class="mb-0">+1 (555) 123-4567</p>
+                        <small class="opacity-75">Mon-Sun 24/7</small>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-1">Email</h6>
+                        <p class="mb-0">support@travon.com</p>
+                        <small class="opacity-75">We'll respond within 24h</small>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-1">Address</h6>
+                        <p class="mb-0">123 Travel Street<br>Tourism District<br>New York, NY 10001</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div>
+                        <h6 class="mb-1">Business Hours</h6>
+                        <p class="mb-0">24/7 Customer Support</p>
+                        <small class="opacity-75">Always here for you</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="container my-5 py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+            <h2 class="section-title display-5">Frequently Asked Questions</h2>
+            <p class="section-subtitle">
+                Quick answers to common questions about booking and our services.
+            </p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="faq-item">
+                <h5 class="faq-question">How do I cancel my booking?</h5>
+                <p class="faq-answer">You can cancel your booking through your account dashboard or by contacting our support team. Cancellation policies vary by hotel.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h5 class="faq-question">Is my payment information secure?</h5>
+                <p class="faq-answer">Yes, we use industry-standard encryption and security measures to protect all payment information and personal data.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h5 class="faq-question">Can I modify my reservation?</h5>
+                <p class="faq-answer">Most reservations can be modified subject to availability and hotel policies. Contact us for assistance with changes.</p>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="faq-item">
+                <h5 class="faq-question">Do you offer group bookings?</h5>
+                <p class="faq-answer">Yes, we offer special rates for group bookings of 10 or more rooms. Contact our group sales team for personalized assistance.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h5 class="faq-question">What if I need help during my trip?</h5>
+                <p class="faq-answer">Our 24/7 customer support team is always available to assist you with any issues or questions during your travels.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h5 class="faq-question">How do I earn loyalty points?</h5>
+                <p class="faq-answer">Create an account and start earning points with every booking. Points can be redeemed for discounts on future stays.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>

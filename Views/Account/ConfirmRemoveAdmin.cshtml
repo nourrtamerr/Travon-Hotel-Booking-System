@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "ConfirmRemoveAdmin";
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+}
+<div class="users-container">
+    <div class="alert alert-danger mt-4">
+        <h4>Are you sure you want to remove admin rights from <strong>@Model.UserName</strong>?</h4>
+        <form asp-action="RemoveAdmin" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn btn-danger">Yes, Remove Admin</button>
+            <a asp-action="GiveRole" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+

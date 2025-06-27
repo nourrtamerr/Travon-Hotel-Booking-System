@@ -1,0 +1,290 @@
+@{
+    ViewData["Title"] = "About";
+}
+
+<style>
+    .hero-about {
+        background: linear-gradient(135deg, #1A374D 0%, #406882 100%);
+        padding: 100px 0;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-about::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+        opacity: 0.3;
+    }
+    
+    .feature-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        height: 100%;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #1A374D, #406882);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        color: white;
+        font-size: 2rem;
+    }
+    
+    .stats-section {
+        background: #f8f9fa;
+        padding: 80px 0;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .stat-number {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #1A374D;
+        display: block;
+    }
+    
+    .stat-label {
+        color: #406882;
+        font-size: 1.1rem;
+        margin-top: 10px;
+    }
+    
+    .section-title {
+        color: #1A374D;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    
+    .section-subtitle {
+        color: #406882;
+        font-size: 1.2rem;
+        margin-bottom: 50px;
+    }
+</style>
+
+
+
+<body class="home-page">
+
+
+<!-- Hero Section -->
+<div class="hero-about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">About Travon</h1>
+                <p class="lead mb-4">
+                    Your trusted companion for discovering extraordinary destinations and creating unforgettable travel experiences around the world.
+                </p>
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-plane me-3" style="font-size: 2rem;"></i>
+                    <span class="h5 mb-0">Making travel dreams come true since 2020</span>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="fa-solid fa-globe" style="font-size: 15rem; opacity: 0.2;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container my-5 py-5">
+    <div class="row text-center mb-5">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="section-title display-5">Why Choose Travon?</h2>
+            <p class="section-subtitle">
+                We're committed to providing you with the best travel booking experience, 
+                combining cutting-edge technology with personalized service.
+            </p>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-hotel"></i>
+                </div>
+                <h4 class="mb-3" style="color: #1A374D;">Premium Hotels</h4>
+                <p style="color: #406882;">
+                    Access to over 100,000 carefully selected hotels worldwide, 
+                    from luxury resorts to boutique accommodations.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h4 class="mb-3" style="color: #1A374D;">Secure Booking</h4>
+                <p style="color: #406882;">
+                    Your personal and payment information is protected with 
+                    industry-leading security measures and encryption.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h4 class="mb-3" style="color: #1A374D;">24/7 Support</h4>
+                <p style="color: #406882;">
+                    Our dedicated customer support team is available around 
+                    the clock to assist you with any questions or concerns.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-tags"></i>
+                </div>
+                <h4 class="mb-3" style="color: #1A374D;">Best Prices</h4>
+                <p style="color: #406882;">
+                    We guarantee competitive prices and exclusive deals 
+                    that you won't find anywhere else.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                </div>
+                <h4 class="mb-3" style="color: #1A374D;">Easy Booking</h4>
+                <p style="color: #406882;">
+                    Our intuitive platform makes it simple to search, 
+                    compare, and book your perfect accommodation.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <h4 class="mb-3" style="color: #1A374D;">Quality Assured</h4>
+                <p style="color: #406882;">
+                    Every hotel partner is vetted for quality standards 
+                    to ensure your stay exceeds expectations.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="stats-section">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="section-title display-5">Our Impact</h2>
+                <p class="section-subtitle">
+                    Numbers that reflect our commitment to excellence and customer satisfaction.
+                </p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-item">
+                    <span class="stat-number">1M+</span>
+                    <div class="stat-label">Happy Travelers</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-item">
+                    <span class="stat-number">100K+</span>
+                    <div class="stat-label">Hotel Partners</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-item">
+                    <span class="stat-number">200+</span>
+                    <div class="stat-label">Countries</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-item">
+                    <span class="stat-number">4.9★</span>
+                    <div class="stat-label">Customer Rating</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mission Section -->
+<div class="container my-5 py-5">
+    <div class="row align-items-center">
+        <div class="col-lg-6">
+            <h2 class="section-title display-5">Our Mission</h2>
+            <p class="section-subtitle">
+                To make travel accessible, enjoyable, and memorable for everyone, 
+                while supporting local communities and sustainable tourism practices.
+            </p>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="fa-solid fa-leaf me-3 mt-1" style="color: #1A374D;"></i>
+                        <div>
+                            <h6 style="color: #1A374D;">Sustainable Travel</h6>
+                            <small style="color: #406882;">Promoting eco-friendly accommodations</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="fa-solid fa-handshake me-3 mt-1" style="color: #1A374D;"></i>
+                        <div>
+                            <h6 style="color: #1A374D;">Local Communities</h6>
+                            <small style="color: #406882;">Supporting local businesses</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center">
+            <div class="p-4">
+                <i class="fa-solid fa-heart" style="font-size: 8rem; color: #A7C7E7; opacity: 0.7;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>

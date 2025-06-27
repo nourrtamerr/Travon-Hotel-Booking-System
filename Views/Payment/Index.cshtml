@@ -1,0 +1,444 @@
+﻿@model IEnumerable<MVCBookingFinal_YARAB_.Models.Payment>
+
+@{
+    ViewData["Title"] = "Payments";
+
+    if (User.IsInRole("ADMIN"))
+    {
+        Layout = "_AdminHome";
+    }
+}
+
+<style>
+    .payments-container {
+        padding: 1rem;
+        overflow: hidden;
+        width: 100%;
+        height: 100vh;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+        border: none;
+        border-radius: 12px;
+        background: #ffffff;
+    }
+
+    .header-section {
+        background: linear-gradient(135deg, #1a374d 0%, #11263a 100%);
+        padding: 30px 40px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-content {
+        margin-bottom: 20px;
+    }
+
+    .page-title {
+        color: white;
+        margin: 0;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .page-subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        margin: 8px 0 0 0;
+        font-size: 15px;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .search-box {
+        position: relative;
+        flex: 1;
+        max-width: 300px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px 15px 10px 38px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
+        }
+
+    .search-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 14px;
+    }
+
+    .create-btn {
+        background: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+        .create-btn:hover {
+            background: #218838;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        }
+
+    @@media (max-width: 768px) {
+        .header-section {
+            padding: 20px;
+        }
+
+        .header-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-box {
+            max-width: none;
+        }
+    }
+
+    .payments-table thead {
+        background: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+
+
+    .th-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .th-icon {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+
+    .payments-table td {
+        padding: 16px 20px;
+    }
+
+    .table-container {
+        /* padding: 20px 30px; */
+        /* overflow-x: auto; */
+        overflow: hidden;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden; /* Ensures children respect the border radius */
+        border: 1px solid #e9ecef;
+    }
+
+    .payments-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+
+
+        .payments-table td {
+            padding: 20px 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+
+        .payments-table tr:hover td {
+            background: #f8f9fa;
+        }
+
+    .payment-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+        .payment-badge.stripe {
+            background: #635bff;
+            color: white;
+        }
+
+        .payment-badge.credit {
+            background: #28a745;
+            color: white;
+        }
+
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+        .status-badge.pending {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .status-badge.completed {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-badge.failed {
+            background: #dc3545;
+            color: white;
+        }
+
+    .transaction-id {
+        font-family: monospace;
+        color: #666;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-action {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .btn-view {
+        background: #1a374d;
+        color: white;
+    }
+
+        .btn-view:hover {
+            background: #142c3c;
+        }
+
+    .btn-edit {
+        background: #28a745;
+        color: white;
+    }
+
+        .btn-edit:hover {
+            background: #218838;
+        }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+    }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+    @@media (max-width: 768px) {
+        .header-section {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+    }
+
+    .payments-table thead {
+        background: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .payments-table th {
+        padding: 16px 20px;
+        color: #1a374d;
+        font-weight: 700; /* Updated from 600 to 700 for bolder text */
+        text-align: left;
+        font-size: 14px;
+        white-space: nowrap;
+        text-transform: uppercase; /* Added to make headers more prominent */
+        letter-spacing: 0.5px; /* Added for better readability */
+
+
+        position: sticky;
+        top: 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .th-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .th-icon {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .search-bar-wrapper {
+        display: flex;
+        align-items: center;
+        background: #f5f7f8;
+        border-radius: 2rem;
+        padding: 2px 16px 2px 16px;
+        box-shadow: none;
+        border: 1px solid #f5f7f8;
+        width: 100%;
+        transition: border-color 0.2s;
+    }
+
+    .search-bar-input {
+        border: none;
+        background: transparent;
+        outline: none;
+        flex: 1;
+        padding: 10px 8px;
+        font-size: 1rem;
+        border-radius: 2rem;
+        color: #222;
+    }
+
+        .search-bar-input::placeholder {
+            color: #888;
+            opacity: 1;
+        }
+
+    .search-bar-btn {
+        background: none;
+        border: none;
+        outline: none;
+        color: #222;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-bar-wrapper:focus-within {
+        border: 1px solid #b3b3b3;
+    }
+</style>
+
+<div class="payments-container">
+
+    <form method="get" class="search-bar-form mb-4" style="flex-grow:1; max-width: 600px;">
+        <div class="search-bar-wrapper">
+            <input type="text" name="Search" class="search-bar-input" placeholder="Search" value="Search" />
+            <button type="submit" class="search-bar-btn" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+
+    <div class="table-container">
+        <table class="payments-table table-striped table-rounded" style="border: 1px solid #e9ecef; ">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="th-content">
+                            <i class="fas fa-credit-card th-icon "style="font-size:20px" ></i>
+                            Payment Method
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th-content">
+                            <i class="fas fa-check-circle th-icon" style="font-size:20px"></i>
+                            Status
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th-content">
+                            <i class="fas fa-calendar th-icon"></i>
+                            Payment Date
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th-content">
+                            <i class="fas fa-hashtag th-icon"></i>
+                            Transaction ID
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (item.payment.GetType() == typeof(StripePaymentMethod))
+                            {
+                                <span class="payment-badge stripe">
+                                    <i class="fab fa-stripe"></i>
+                                    Stripe
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="payment-badge credit">
+                                    <i class="fas fa-credit-card"></i>
+                                    Credit Card
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            <span class="status-badge @item.status.ToLower()">@item.status</span>
+                        </td>
+                        <td>@item.PaymentDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                            <span class="transaction-id">#@item.TransactionId</span>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+   
+

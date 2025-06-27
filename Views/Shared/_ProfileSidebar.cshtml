@@ -1,0 +1,182 @@
+﻿
+
+@{
+    // ViewData["Title"] = "EditAccount";
+    string pic = @ViewBag.ProfilePicture ?? "Default.jpg";
+    string Fname = ViewBag.FirstName;
+    string Lname = ViewBag.LastName;
+    string email = ViewBag.Email;
+
+    string currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    string currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+
+}
+
+<style>
+    .profile-sidebar {
+        background: #fff;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 2rem;
+        min-height: calc(100vh - 100px);
+        height: 100vh;
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .profile-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .nav-itemm {
+        padding: 1rem;
+        border-radius: 8px;
+        color: #495057;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .nav-itemm i {
+            margin-right: 10px;
+        }
+
+
+        .nav-itemm:hover{
+             background:rgb(224, 238, 252); 
+            /* background:rgb(202, 203, 198); */
+            /* background: #e3f6fc; */
+            text-decoration:none;
+            color: #1A374D;
+        }
+        
+        /* .nav-item.active { */
+        /*     background: #f8f9fa; */
+        /*     color: #0d6efd; */
+        /* } */
+
+
+        .nav-itemm.active, .nav-itemm:active {
+            background: #1A374D;
+            color: #fff !important;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(26, 55, 77, 0.08);
+            border-left: 4px solid #406882;
+        }
+
+            .nav-itemm.active i {
+                color: #A7C7E7;
+            }
+
+    .profile-content {
+        padding: 2rem;
+    }
+
+    .section-title {
+        margin-bottom: 2rem;
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .form-control {
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+    }
+
+    .btn-primary {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+    }
+
+    .badge {
+        padding: 0.5em 0.8em;
+        border-radius: 6px;
+    }
+
+    .file-upload-container {
+        margin-top: 10px;
+    }
+
+    .custom-file-upload {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        background: #1a374d;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+        gap: 8px;
+    }
+
+        .custom-file-upload:hover {
+            background: #142c3c;
+            transform: translateY(-1px);
+        }
+
+        .custom-file-upload i {
+            font-size: 16px;
+        }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .selected-file-name {
+        margin-top: 8px;
+        color: #666;
+        font-size: 14px;
+    }
+</style>
+
+
+
+<div class="profile-sidebar">
+     <div class="profile-header text-center mb-4"> 
+         <img src="~/ProductsImages/@pic" class="profile-avatar" alt="Profile Picture" /> 
+         <h4 class="mt-3">@Fname @Lname</h4>  
+          <p class="text-muted">@email</p> 
+     </div> 
+
+    <div class="profile-nav">
+        <a asp-action="EditAccount" asp-controller="Account" class="nav-itemm  @(currentAction == "EditAccount" && currentController == "Account" ? "active" : "")">
+            Edit Profile  <i class="fas fa-user-edit"></i>
+        </a>
+        <a asp-action="MyReservations" asp-controller="reservation" class="nav-itemm  @(currentAction == "MyReservations" && currentController == "Reservation" ? "active" : "")">
+            My Reservations <i class="fas fa-calendar-check"></i>
+            @* <span class="badge bg-primary">3</span> *@
+        </a>
+        <a asp-action="ViewMyDraft" asp-controller="reservation" class="nav-itemm  @(currentAction == "ViewMyDraft" && currentController == "Reservation" ? "active" : "")">
+            My Draft Reservation <i class="fas fa-clock"></i>
+
+        </a>
+       
+
+        <a asp-controller="Reviews" asp-action="Index" class="nav-itemm  @(currentAction == "Index" && currentController == "Reviews" ? "active" : "")">
+            My Reviews <i class="fa-solid fa-pen-to-square"></i>
+            @* <i class="fas fa-star"></i> *@
+
+        </a>
+        <a asp-action="myInvoices" asp-controller="Invoice"
+           class="nav-itemm @(currentController == "Invoice" &&  currentAction == "myInvoices" ? "active" : "")">
+            My Invoices <i class="fas fa-file-invoice"></i>
+        </a>
+        <a asp-controller="Favorites" asp-action="Index" asp-route-foruser="true" class="nav-itemm  @(currentAction == "Index" && currentController == "Favorites" ? "active" : "")">
+
+             My Favorites <i class="fas fa-heart" style=" margin-right: 8px;"></i>
+           
+
+        </a>
+    </div>
+</div>

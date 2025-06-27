@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "MyTripsAndReviews";
+    
+}
+
+@model MyTripsAndReviewsViewModel
+@await Html.PartialAsync("_ProfileSidebar", Model)
+<h2>Hotels you can review</h2>
+@if (!Model.HotelsToReview.Any())
+{
+    <p>You have reviewed all your past trips!</p>
+}
+else
+{
+    <ul>
+        @foreach (var hotel in Model.HotelsToReview)
+        {
+            <li>
+                @hotel.Name
+                <a asp-action="Create" asp-route-id="@hotel.id" class="btn btn-primary btn-sm">Write a Review</a>
+            </li>
+        }
+    </ul>
+}
+
+<h2>Your Reviews</h2>
+@if (!Model.UserReviews.Any())
+{
+    <p>You haven't made any reviews yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Hotel</th>
+                <th>Rating</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var review in Model.UserReviews)
+            {
+                <tr>
+                    <td>@review.Hotel.Name</td>
+                    <td>@review.Rating</td>
+                    <td>@review.Description</td>
+                    <td>@review.ReviewDate.ToShortDateString()</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@review.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@review.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

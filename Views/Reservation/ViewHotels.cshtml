@@ -1,0 +1,550 @@
+﻿@using System.Reflection
+@using System.ComponentModel.DataAnnotations
+@using System.Security.Claims
+@model IEnumerable<MVCBookingFinal_YARAB_.Models.Hotel>
+
+@{
+    ViewData["Title"] = "ViewHotels";
+    var selectedAmenities = ViewBag.SelectedAmenities as List<int> ?? new List<int>();
+
+
+    
+
+    Func<AmenityEnum, string> getDisplayName = (AmenityEnum a) =>
+    {
+        var field = typeof(AmenityEnum).GetField(a.ToString());
+        var displayAttr = field?.GetCustomAttribute<DisplayAttribute>();
+        return displayAttr?.Name ?? a.ToString();
+    };
+
+    var selectlist = Enum.GetValues(typeof(AmenityEnum))
+                    .Cast<AmenityEnum>()
+                     //.Where(a => a != AmenityEnum.AirportShuttle) 
+                    .Select(a => new SelectListItem
+                            {
+                                Value = ((int)a).ToString(),  // Enum integer value
+                                Text = getDisplayName(a)      // Enum string name
+
+                            })
+                    .ToList();
+}
+
+
+
+
+
+<style>
+    .btn {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        padding-left: 10px;
+        padding-right: 10px;  
+        font-size: 14px;
+    }
+
+
+
+    .pagination {
+        display: flex;
+        padding-left: 0;
+        list-style: none;
+        border-radius: 0.25rem;
+    }
+
+    .page-item {
+        margin: 0 2px;
+    }
+
+    .page-link {
+       
+        color: #1A374D;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        padding: 6px 18px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .page-item.active .page-link {
+       
+        color: #fff;
+      
+
+        background-color: #1A374D;
+        border-color: #1A374D;
+    }
+
+    .page-item.disabled .page-link {
+        color: #aaa;
+        pointer-events: none;
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+    }
+
+
+    .filter-section {
+        margin-bottom: 0;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+        .filter-section h5 {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 15px 0;
+        }
+    
+    // .collapse {
+    //     padding: 10px 0;
+    // }
+
+    .filter-checkbox {
+        margin-bottom: 0.8rem;
+    }
+
+        .filter-checkbox label {
+            color: #666;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-checkbox input[type='checkbox'] {
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+   
+    .filter-section h5::after {
+        content: "\f078"; 
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-left: 0.5rem;
+        transition: transform 0.2s;
+    }
+
+    .filter-section h5[aria-expanded='true']::after {
+        transform: rotate(180deg);
+    }
+
+    .filter-checkbox {
+        margin-bottom: 0.5rem;
+    }
+
+        .filter-checkbox label {
+            color: #666;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: block;
+            padding: 0.3rem 0;
+        }
+
+        .filter-checkbox input[type='checkbox'] {
+            margin-right: 0.5rem;
+        }
+
+    .filter-section select {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 0.5rem;
+        width: 100%;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        background: #1A374D;
+        color: white;
+    }
+
+        .btn:hover {
+            background: rgb(50, 90, 120);
+            color: white;
+        }
+
+    .card .fa-heart:hover {
+        filter: brightness(0.85) drop-shadow(0 2px 8px rgba(220,53,69,0.18));
+        transition: filter 0.2s;
+    }
+
+    .hotel-image-container {
+        position: relative;
+    }
+
+    .heart-fav-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 2;
+        background: white;
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(26,55,77,0.10);
+        border: none;
+        padding: 0;
+        transition: box-shadow 0.2s;
+    }
+
+        .heart-fav-btn i {
+            font-size: 1.3rem;
+            color: #dc3545;
+        }
+
+        .heart-fav-btn:hover {
+            box-shadow: 0 4px 16px rgba(220,53,69,0.18);
+        }
+
+
+
+
+    .hotel-image-container {
+        position: relative;
+    }
+
+    .heart-fav-btn {
+        position: absolute;
+        top: 23px;
+        right: 23px;
+        z-index: 2;
+        background: white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(26,55,77,0.10);
+        border: none;
+        padding: 0;
+        transition: box-shadow 0.2s;
+        font-size: 1rem !important;
+    }
+
+        .heart-fav-btn i {
+            font-size: 1rem;
+            color: #dc3545;
+        }
+
+        .heart-fav-btn:hover {
+            box-shadow: 0 4px 16px rgba(220,53,69,0.18);
+        }
+
+    // .hotel-image {
+    //     width: 160px;
+    //     height: 120px;
+    //     object-fit: cover;
+    //     border-radius: 12px;
+    // }
+
+    .hotel-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-height: 3.6em;
+    }
+
+
+    .card.hotel-hover {
+        transition: box-shadow 0.3s, transform 0.2s, background 0.2s;
+        cursor: pointer;
+    }
+
+        .card.hotel-hover:hover {
+            
+            background:rgb(245, 250, 255);
+            
+        }
+
+
+
+
+    // .hotel-image-container {
+    //     aspect-ratio: 4/3; 
+    //     width: 100%;
+    //     overflow: hidden;
+    //     border-radius: 16px;
+    //     background: #f5f5f5;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
+
+    //     .hotel-image-container img {
+    //         width: 100%;
+    //         height: 100%;
+    //         object-fit: cover;
+    //         border-radius: 16px;
+    //         display: block;
+    //     }
+   
+</style>
+
+
+
+
+
+
+
+<div class="container px-5">
+
+
+    <div class="container row my-5">
+
+
+
+        <div class="col-sm-12 col-md-2 mb-3 mb-lg-0 col-lg-3">
+
+          
+
+<div class="p-3 ">
+                <form action="FilterHotels"  class="d-flex flex-column">
+        <div class="filter-section">
+            <h5 class="d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#amenitiesCollapse" aria-expanded="true" aria-controls="amenitiesCollapse">
+                Select Amenities
+            </h5>
+            <div class="collapse show" id="amenitiesCollapse">
+                @foreach (var item in selectlist)
+                {
+                    <div class="filter-checkbox">
+                        <label>
+                                        <input type="checkbox" name="Amenities" value="@item.Value" @(selectedAmenities.Contains(int.Parse(item.Value)) ? "checked" : "")>
+                                        
+                            @item.Text
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+                    
+
+        @{
+            HotelsortBy sort = HotelsortBy.OurTopPicks;
+            if (ViewBag.Sorting is not null)
+            {
+                sort = ViewBag.Sorting;
+            }
+        }
+        
+        <div class="filter-section">
+            <h5 class="d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#sortCollapse" aria-expanded="true" aria-controls="sortCollapse">
+                Sort By
+            </h5>
+            <div class="collapse show" id="sortCollapse">
+                @foreach (var item in Html.GetEnumSelectList<HotelsortBy>())
+                {
+                    <div class="filter-checkbox">
+                        <label>
+                            <input type="radio" name="Sorting" value="@item.Value" @(sort == (HotelsortBy)(int.Parse(item.Value)) ? "checked" : "")> @item.Text
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="mt-4">
+            <button type="submit" class="btn w-100">Filter</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize all collapse elements
+        var collapseElements = document.querySelectorAll('[data-bs-toggle="collapse"]');
+        
+        collapseElements.forEach(function(element) {
+            element.addEventListener('click', function() {
+                var target = document.querySelector(this.getAttribute('data-bs-target'));
+                if (target) {
+                    if (target.classList.contains('show')) {
+                        target.classList.remove('show');
+                        this.setAttribute('aria-expanded', 'false');
+                    } else {
+                        target.classList.add('show');
+                        this.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            });
+        });
+    });
+
+
+                //                    document.getElementById('filterForm').addEventListener('submit', function(e) {
+                
+                //     e.preventDefault();
+
+            
+                //     var checkboxes = document.querySelectorAll('input[type="checkbox"][name="AmenitiesCheckbox"]:checked');
+                //     var bitmask = 0;
+                //     checkboxes.forEach(function(cb) {
+                //         bitmask |= parseInt(cb.value, 10);
+                //     });
+
+    
+                //     document.getElementById('AmenitiesBitmask').value = bitmask;
+
+             
+                //     this.submit();
+                // });
+</script>
+        </div>
+
+
+
+        <div class="col-sm-12 col-md-4 mb-3 mb-lg-0 col-lg-9">
+            @foreach (var item in Model)
+            {
+                var myflags = Enum.GetValues(typeof(AmenityEnum))
+                .Cast<AmenityEnum>()
+                .Where(amenity => item.Ameneties.Amenities.HasFlag(amenity))
+                .ToList();
+
+                <div class="row g-0">
+
+
+                    <div class="card mb-3 hotel-hover" style="border-radius: 15px; position:relative;">
+
+                        <!-- Heart Icon -->
+                        @{
+                            var favoriteHotelIds = ViewBag.FavoriteHotelIds as List<int> ?? new List<int>();
+                            bool isFavorite = favoriteHotelIds.Contains(item.id);
+                        }
+
+
+                       
+                        <div class="row g-0">
+
+                            <!-- Image Section -->
+                            <div class="col-md-4 p-3 hotel-image-container">
+                                <div class="heart-fav-btn ">
+                                    @if (!item.Favorites.Any(f => f.User.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                                    {
+                                        <a class="heart-link" asp-action="Favor" asp-controller="Hotel" asp-route-hotelid="@item.id" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%; text-decoration:none">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="heart-link" asp-action="UnFavor" asp-controller="Hotel" asp-route-hotelid="@item.id" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-decoration:none">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </a>
+                                    }
+                                </div>
+                                <div class="hotel-card-link" data-hotel-id="@item.id" style="height:100%;">
+                                    <img src="~/ProductsImages/@item.Images.FirstOrDefault()?.Image" alt="Hotel Image" class="img-fluid w-100 h-100"
+                                         style="border-radius:15px; object-fit: cover;">
+                                    </div>
+                            </div>
+
+                            <!-- Card Body Section -->
+                            <div class="col-md-8">
+                                <div class="card-body hotel-card-link" data-hotel-id="@item.id">
+                                    <div class="row">
+                                        <!-- Name, Address, Description -->
+                                        <div class="col-md-9">
+                                            <a asp-action="GoToHotel" asp-route-id="@item.id" class="text-decoration-none">
+                                                <h5 class="card-title">
+                                                @item.Name
+                                                @for (int i = 0; i < item.starRating; i++)
+                                                {
+                                                    <i class="fas fa-star" style="color: gold;"></i>
+                                                }
+                                                </h5>
+                                            </a>
+                                            <p class="card-text">@item.Address</p>
+                                            <p class="card-text hotel-description"><small class="text-muted">@item.Description</small></p>
+                                        </div>
+
+                                        <!-- City Name -->
+                                        <div class="col-md-3 d-flex flex-column align-items-end">
+                                            <p class="card-text pe-2" style="color:dimgray"><i class="fa-solid fa-location-dot" style="margin-right:5px; color:grey"></i>@item.city.Name</p>
+                                            <a asp-action="GoToHotel" asp-route-id="@item.id" class="btn btn-sm mt-auto" style="border-radius:5px">Check Rooms</a>
+                                        </div>
+                                    </div>
+                                </div> <!-- End Card Body -->
+                            </div>
+
+                        </div> <!-- End Row -->
+                        
+                        
+                        
+                        
+                        </div> <!-- End Card -->
+                 
+                </div> <!-- End Row -->
+            }
+        </div>
+
+
+
+        @{
+    int pageNum = ViewBag.PageNum ?? 0;
+    int pageSize = ViewBag.PageSize ?? 10;
+    int totalItems = ViewBag.TotalItems ?? 0;
+    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mt-5">
+        <li class="page-item @(pageNum == 0 ? "disabled" : "")">
+            <a class="page-link" asp-action="nextPage" asp-controller="Reservation" asp-route-pagenum="@(pageNum - 1)">Previous</a>
+        </li>
+        @for (int i = 0; i < totalPages; i++)
+        {
+            <li class="page-item @(pageNum == i ? "active" : "")">
+                <a class="page-link" asp-action="nextPage" asp-controller="Reservation" asp-route-pagenum="@(i)">@(i+1)</a>
+            </li>
+        }
+        <li class="page-item @(pageNum == totalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="nextPage" asp-controller="Reservation" asp-route-pagenum="@(pageNum + 1)">Next</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+
+
+
+
+        <partial name="_modalPartial"></partial>
+
+    </div>
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.hotel-card-link').forEach(function(el) {
+            el.addEventListener('click', function(e) {
+                // Prevent if the click is on the heart icon or inside it
+                if (e.target.closest('.heart-fav-btn, .heart-link')) return;
+                // Get hotel id
+                var hotelId = this.getAttribute('data-hotel-id');
+                if (hotelId) {
+                    window.location.href = '/Reservation/GoToHotel/' + hotelId;
+                }
+            });
+        });
+    });
+
+</script>
+
+
+
+ 

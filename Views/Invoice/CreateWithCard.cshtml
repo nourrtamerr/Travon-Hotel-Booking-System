@@ -1,0 +1,163 @@
+﻿@model MVCBookingFinal_YARAB_.ViewModels.CardPaymentViewModel
+
+@{
+    ViewData["Title"] = "Pay With Card";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<style>
+    body {
+        background: #f5f7fa;
+    }
+    .payment-card {
+        max-width: 800px;
+        margin: 60px auto 0 auto;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(26, 55, 77, 0.10);
+        padding: 2.5rem 2rem 2rem 2rem;
+    }
+    .card-logos {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 1rem;
+        align-items: center;
+    }
+    .card-logos img {
+        height: 28px;
+        width: auto;
+    }
+    .card-form-box {
+        background: #f7f7f7;
+        border: 1.5px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 1.5rem 1rem 1rem 1rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 8px rgba(26, 55, 77, 0.04);
+    }
+    .form-label {
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 0.2rem;
+    }
+    .required {
+        color: #e74c3c;
+        margin-left: 2px;
+    }
+    .form-control {
+        border-radius: 8px;
+        font-size: 1.2rem;
+        padding: 0.8rem 1rem;
+        margin-bottom: 1.2rem;
+        border: 2px solid #27ae60;
+        background: #fff;
+        transition: border-color 0.2s;
+    }
+    .form-control:focus {
+        border-color: #1a374d;
+        outline: none;
+    }
+    .input-group {
+        position: relative;
+    }
+    .input-group .card-type-logo {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 24px;
+        width: auto;
+        pointer-events: none;
+    }
+    .row {
+        display: flex;
+        gap: 1rem;
+    }
+    .row .form-group {
+        flex: 1;
+    }
+    .btn-place-order {
+        background: #1976d2;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.9rem 0;
+        font-size: 1.15rem;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 0.5rem;
+        transition: background 0.2s, transform 0.2s;
+    }
+    .btn-place-order:hover {
+        background: #125ea2;
+        transform: translateY(-2px);
+        color: #fff;
+    }
+    .privacy-text {
+        font-size: 0.98rem;
+        color: #444;
+        margin-top: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    .privacy-text a {
+        color: #1976d2;
+        text-decoration: underline;
+    }
+    .total-amount {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1A374D;
+        margin-bottom: 1.2rem;
+    }
+</style>
+
+<div class="payment-card">
+    <div class="card-logos">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard" />
+        @* <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/American_Express_logo_%282018%29.svg" alt="Amex" /> *@
+        @* <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Discover_Card_logo.svg" alt="Discover" /> *@
+    </div>
+    <div class="card-form-box">
+        <div class="total-amount">
+            TOTAL: <span style="color:#406882; font-size:1.3rem;">@ViewBag.Amount</span> <i class="fa-solid fa-dollar-sign"></i>
+        </div>
+        <form asp-action="CreateWithCard" autocomplete="off">
+            <div asp-validation-summary="All" class="text-danger mb-2"></div>
+            <div class="form-group mb-3">
+                <label asp-for="CardNumber" class="form-label">Card Number <span class="required">*</span></label>
+                <div class="input-group">
+                    <input asp-for="CardNumber" class="form-control" maxlength="19" placeholder="1234 5678 9012 3456" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" class="card-type-logo" alt="Card Type" />
+                </div>
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group mb-3">
+                    <label asp-for="ExpiryDate" class="form-label">Expiration (MM/YY) <span class="required">*</span></label>
+                    @* <input asp-for="ExpiryDate" class="form-control" placeholder="MM/YY" maxlength="5" pattern="^(0[1-9]|1[0-2])\\/([0-9]{2})$\" title="Format: MM/YY" /> *@
+                     <input asp-for="ExpiryDate" class="form-control" type="month" /> 
+                    @* <input asp-for="ExpiryDate" class="form-control" placeholder="MM/YY" maxlength="5" pattern="^(0[1-9]|1[0-2])\\/([0-9]{2})$" title="Format: MM/YY" autocomplete="cc-exp" /> *@
+                    <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="CVV" class="form-label">Card Security Code <span class="required">*</span></label>
+                    <input asp-for="CVV" class="form-control" maxlength="4" placeholder="123" />
+                    <span asp-validation-for="CVV" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn-place-order">
+                <i class="fa-solid fa-lock"></i> Confirm Payment
+            </button>
+        </form>
+    </div>
+    <div class="privacy-text">
+        Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href=\"#\">privacy policy</a>.
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

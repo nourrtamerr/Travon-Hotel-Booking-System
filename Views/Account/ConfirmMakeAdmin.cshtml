@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "ConfirmMakeAdmin";
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+}
+
+<div class="users-container">
+    <div class="alert alert-warning mt-4">
+        <h4>Are you sure you want to make <strong>@Model.UserName</strong> an admin?</h4>
+        <form asp-action="MakeAdmin" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn btn-success">Yes, Make Admin</button>
+            <a asp-action="GiveRole" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
