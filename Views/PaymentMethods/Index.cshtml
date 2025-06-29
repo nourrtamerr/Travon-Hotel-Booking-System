@@ -8,46 +8,6 @@
     }
 }
 
-<div class="payment-selection-container">
-    <div class="payment-header">
-        <h1 class="payment-title">Choose Payment Method</h1>
-        <p class="payment-subtitle">Select your preferred way to pay</p>
-    </div>
-
-    <form method="post" asp-action="RedirectToPaymentMethods" class="payment-form">
-        <div class="payment-options">
-            @foreach (var paymentType in ViewBag.PaymentTypes)
-            {
-                <div class="payment-option">
-                    <input type="radio"
-                           id="@paymentType.Value"
-                           name="paymentType"
-                           value="@paymentType.Value"
-                           class="payment-radio" />
-                    <label for="@paymentType.Value" class="payment-label">
-                        @if (paymentType.Value.ToLower().Contains("stripe"))
-                        {
-                            <i class="fab fa-stripe payment-icon stripe"></i>
-                            <span class="payment-text">Pay with Stripe</span>
-                            <span class="payment-description">Fast and secure payment via Stripe</span>
-                        }
-                        else
-                        {
-                            <i class="fas fa-credit-card payment-icon credit"></i>
-                            <span class="payment-text">Credit Card</span>
-                            <span class="payment-description">Payments with  card</span>
-                        }
-                    </label>
-                </div>
-            }
-        </div>
-
-        <button type="submit" class="payment-submit">
-            <i class="fas fa-lock"></i>
-            Continue to Payment
-        </button>
-    </form>
-</div>
 
 <style>
     .payment-selection-container {
@@ -159,16 +119,55 @@
         }
 
     @@media (max-width: 768px) {
-        .payment-selection-container
+        .payment-selection-container {
+            margin: 20px;
+            padding: 20px;
+        }
 
-    {
-        margin: 20px;
-        padding: 20px;
-    }
-
-    .payment-description {
-        display: none;
-    }
-
+        .payment-description {
+            display: none;
+        }
     }
 </style>
+
+<div class="payment-selection-container">
+    <div class="payment-header">
+        <h1 class="payment-title">Choose Payment Method</h1>
+        <p class="payment-subtitle">Select your preferred way to pay</p>
+    </div>
+
+    <form method="post" asp-action="RedirectToPaymentMethods" class="payment-form">
+        <div class="payment-options">
+            @foreach (var paymentType in ViewBag.PaymentTypes)
+            {
+                <div class="payment-option">
+                    <input type="radio"
+                           id="@paymentType.Value"
+                           name="paymentType"
+                           value="@paymentType.Value"
+                           class="payment-radio" />
+                    <label for="@paymentType.Value" class="payment-label">
+                        @if (paymentType.Value.ToLower().Contains("stripe"))
+                        {
+                            <i class="fab fa-stripe payment-icon stripe"></i>
+                            <span class="payment-text">Pay with Stripe</span>
+                            <span class="payment-description">Fast and secure payment via Stripe</span>
+                        }
+                        else
+                        {
+                            <i class="fas fa-credit-card payment-icon credit"></i>
+                            <span class="payment-text">Credit Card</span>
+                            <span class="payment-description">Payments with  card</span>
+                        }
+                    </label>
+                </div>
+            }
+        </div>
+
+        <button type="submit" class="payment-submit">
+            <i class="fas fa-lock"></i>
+            Continue to Payment
+        </button>
+    </form>
+</div>
+

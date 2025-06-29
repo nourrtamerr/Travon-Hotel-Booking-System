@@ -1,5 +1,22 @@
 ﻿@model IEnumerable<MVCBookingFinal_YARAB_.ViewModels.ReviewViewModel2>
 @using System.Security.Claims
+
+<style>
+    .carousel-inner {
+        display: flex;
+    }
+
+    .carousel-item {
+        text-align: center;
+    }
+
+    .card {
+        max-width: 350px;
+        margin: auto;
+    }
+</style>
+
+
 <h5>Guests who stayed here loved</h5>
 
 <div id="reviewCarousel" class="carousel slide row"  style=" width:950px">
@@ -100,20 +117,7 @@
 
 @* <a href="/Reviews" class="btn btn-primary mt-3">Read all reviews</a> *@
 
-<style>
-    .carousel-inner {
-        display: flex;
-    }
 
-    .carousel-item {
-        text-align: center;
-    }
-
-    .card {
-        max-width: 350px;
-        margin: auto;
-    }
-</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

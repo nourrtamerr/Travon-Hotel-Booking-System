@@ -4,62 +4,6 @@
     SelectList users = new SelectList(ViewBag.User, "Id", "FirstName");
     Layout = "_AdminHome";
 }
-<div class="page-wrapper">
-    <div class="edit-container">
-        <div class="header-section">
-            <div class="header-icon">
-                <i class="fas fa-edit"></i>
-            </div>
-            <h1 class="page-title">Edit Promo Code</h1>
-        </div>
-
-        <div class="form-container">
-            <form asp-action="Edit" class="promo-form">
-                <div asp-validation-summary="All" class="validation-summary"></div>
-                <input type="hidden" asp-for="Id" />
-                <input type="hidden" asp-for="AddingUserID" />
-
-                <div class="form-group">
-                    <label asp-for="Code">
-                        <i class="fas fa-ticket-alt"></i>
-                        Promo Code
-                    </label>
-                    <input asp-for="Code" placeholder="Enter promo code" />
-                    <span asp-validation-for="Code" class="error-message"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="discount">
-                        <i class="fas fa-percentage"></i>
-                        Discount
-                    </label>
-                    <input asp-for="discount" placeholder="Enter discount percentage" />
-                    <span asp-validation-for="discount" class="error-message"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="ExpiryDate">
-                        <i class="fas fa-calendar"></i>
-                        Expiry Date
-                    </label>
-                    <input asp-for="ExpiryDate" type="date" />
-                    <span asp-validation-for="ExpiryDate" class="error-message"></span>
-                </div>
-
-                <div class="form-actions">
-                    <a asp-action="Index" class="btn-cancel">
-                        <i class="fas fa-times"></i>
-                        Cancel
-                    </a>
-                    <button type="submit" class="btn-save">
-                        <i class="fas fa-check"></i>
-                        Save Changes
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <style>
     .page-wrapper {
@@ -102,9 +46,6 @@
     }
 
     .validation-summary {
-        /* background: #fff3cd; */
-        /* border: 1px solid #ffeeba; */
-        /* color: #856404; */
         padding: 15px;
         border-radius: 6px;
         margin-bottom: 20px;
@@ -190,6 +131,65 @@
         box-shadow: 0 4px 12px rgba(26, 55, 77, 0.2);
     }
 </style>
+
+<div class="page-wrapper">
+    <div class="edit-container">
+        <div class="header-section">
+            <div class="header-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <h1 class="page-title">Edit Promo Code</h1>
+        </div>
+
+        <div class="form-container">
+            <form asp-action="Edit" class="promo-form">
+                <div asp-validation-summary="All" class="validation-summary"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="AddingUserID" />
+
+                <div class="form-group">
+                    <label asp-for="Code">
+                        <i class="fas fa-ticket-alt"></i>
+                        Promo Code
+                    </label>
+                    <input asp-for="Code" placeholder="Enter promo code" />
+                    <span asp-validation-for="Code" class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="discount">
+                        <i class="fas fa-percentage"></i>
+                        Discount
+                    </label>
+                    <input asp-for="discount" placeholder="Enter discount percentage" />
+                    <span asp-validation-for="discount" class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ExpiryDate">
+                        <i class="fas fa-calendar"></i>
+                        Expiry Date
+                    </label>
+                    <input asp-for="ExpiryDate" type="date" />
+                    <span asp-validation-for="ExpiryDate" class="error-message"></span>
+                </div>
+
+                <div class="form-actions">
+                    <a asp-action="Index" class="btn-cancel">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn-save">
+                        <i class="fas fa-check"></i>
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 @section Scripts {
     @{

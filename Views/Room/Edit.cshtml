@@ -7,6 +7,40 @@
 
 }
 
+<style>
+    .create-room-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .create-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: #1a374d;
+        padding: 1.5rem;
+        color: white;
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+</style>
+
 <div class="create-room-container">
     <div class="create-card">
         <div class="card-header">
@@ -60,40 +94,7 @@
         </div>
     </div>
 </div>
-<style>
-    .create-room-container {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-    }
 
-    .create-card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        overflow: hidden;
-    }
-
-    .card-header {
-        background: #1a374d;
-        padding: 1.5rem;
-        color: white;
-    }
-
-    .card-title {
-        margin: 0;
-        font-size: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .card-body {
-        padding: 2rem;
-    }
-
-    /* ... rest of your existing styles ... */
-</style>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

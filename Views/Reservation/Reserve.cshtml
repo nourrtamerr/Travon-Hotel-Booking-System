@@ -56,8 +56,6 @@
             };
 }
 
-
-
 <style>
     .hotel-badge {
         font-size: 14px;
@@ -178,40 +176,6 @@
                                         </div>
                                     </div>
 
-
-                                    <!-- Amenities Selection as Checkboxes -->
-                                    @*  <div class="mb-3">
-                        <label class="fw-bold">Add Amenities</label>
-                        <div class="d-flex flex-wrap">
-                            @foreach (var pair in Amenityselectlist)
-                            {
-                                <div class="form-check me-3">
-                                    <input asp-for="amenity" class="form-check-input" type="checkbox" name="amenity" id="amenity_@pair.Value" value="@pair.Value"
-                                    @(pair.Selected ? "checked=\"checked\"" : "")>
-                                    <label class="form-check-label" for="amenity_@pair.Value">@pair.Text</label>
-                                </div>
-                            }
-
-                        </div>
-                    </div> *@
-                                    @* <div class="mb-3"> *@
-                                    @*     <label class="fw-bold">Add Amenities</label> *@
-                                    @*     <select name="amenity" class="form-select" multiple style="height: 80px; border-radius: 10px;"> *@
-                                    @*         @foreach (var pair in Amenityselectlist) *@
-                                    @*         { *@
-                                    @*             @if (@pair.Selected) *@
-                                    @*             { *@
-                                    @*                 <option value="@pair.Value" selected>@pair.Text</option> *@
-
-                                    @*             } *@
-                                    @*             else *@
-                                    @*             { *@
-                                    @*                 <option value="@pair.Value">@pair.Text</option> *@
-
-                                    @*             } *@
-                                    @*         } *@
-                                    @*     </select> *@
-                                    @* </div> *@
 
 
                                     <!-- Promo Code Input -->

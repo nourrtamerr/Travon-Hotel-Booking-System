@@ -9,50 +9,6 @@
     }
 }
 
-@* <h1 class="text-center mt-4 ">Hotel Reports</h1> *@
-
-<div class="payments-container">
-
-    <form method="get" class="search-bar-form mb-4" style="flex-grow:1; max-width: 600px;">
-        <div class="search-bar-wrapper">
-            <input type="text" name="Search" class="search-bar-input" placeholder="Search" value="Search" />
-            <button type="submit" class="search-bar-btn" aria-label="Search">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-    </form>
-
-    <div class="table-container">
-        <table class="payments-table table-striped table-rounded" style="border: 1px solid #e9ecef;">
-            <thead>
-                <tr>
-                    <th><div class="th-content"><i class="fas fa-hotel th-icon"></i> Hotel</div></th>
-                    <th><div class="th-content"><i class="fas fa-user th-icon"></i> User</div></th>
-                    <th><div class="th-content"><i class="fas fa-comment th-icon"></i> Complaint</div></th>
-                    <th><div class="th-content"><i class="fas fa-calendar th-icon"></i> Review Date</div></th>
-                    <th><div class="th-content"><i class="fas fa-cog th-icon"></i> Actions</div></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Hotel.Address</td>
-                        <td>@item.User.UserName</td>
-                        <td>@item.Complaint</td>
-                        <td>@item.ReviewDate.ToShortDateString()</td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm text-info" title="Details"><i class="fas fa-eye"></i></a>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm text-warning" title="Edit"><i class="fas fa-edit"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm text-danger" title="Delete"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
 <style>
     h1 {
         font-weight: bold;
@@ -255,3 +211,47 @@
     }
 
 </style>
+
+@* <h1 class="text-center mt-4 ">Hotel Reports</h1> *@
+
+<div class="payments-container">
+
+    <form method="get" class="search-bar-form mb-4" style="flex-grow:1; max-width: 600px;">
+        <div class="search-bar-wrapper">
+            <input type="text" name="Search" class="search-bar-input" placeholder="Search" value="Search" />
+            <button type="submit" class="search-bar-btn" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+
+    <div class="table-container">
+        <table class="payments-table table-striped table-rounded" style="border: 1px solid #e9ecef;">
+            <thead>
+                <tr>
+                    <th><div class="th-content"><i class="fas fa-hotel th-icon"></i> Hotel</div></th>
+                    <th><div class="th-content"><i class="fas fa-user th-icon"></i> User</div></th>
+                    <th><div class="th-content"><i class="fas fa-comment th-icon"></i> Complaint</div></th>
+                    <th><div class="th-content"><i class="fas fa-calendar th-icon"></i> Review Date</div></th>
+                    <th><div class="th-content"><i class="fas fa-cog th-icon"></i> Actions</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Hotel.Address</td>
+                        <td>@item.User.UserName</td>
+                        <td>@item.Complaint</td>
+                        <td>@item.ReviewDate.ToShortDateString()</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm text-info" title="Details"><i class="fas fa-eye"></i></a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm text-warning" title="Edit"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm text-danger" title="Delete"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

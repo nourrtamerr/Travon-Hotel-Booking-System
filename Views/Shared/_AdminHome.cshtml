@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Admin Home";
-    // List of admin panel links (from _NavFooter admin dropdown)
     var adminLinks = new[] {
         new { Text = "Roles", Action = "GiveRole", Controller = "Account", Icon = "fa-user-shield" },
         new { Text = "Cities", Action = "Index", Controller = "City", Icon = "fa-city" },
@@ -9,18 +8,14 @@
         new { Text = "Rooms", Action = "Index", Controller = "Room", Icon = "fa-bed" },
         new { Text = "Reservations", Action = "Index", Controller = "ReservationRoom", Icon = "fa-suitcase-rolling" },
 
-        // new { Text = "Favorites", Action = "Index", Controller = "Favorites", Icon = "fa-heart" },
         new { Text = "Invoices", Action = "Index", Controller = "Invoice", Icon = "fa-file-invoice-dollar" },
         new { Text = "Payments", Action = "Index", Controller = "Payment", Icon = "fa-credit-card" },
-        // new { Text = "Payment Methods", Action = "Index", Controller = "PaymentMethods", Icon = "fa-money-check-alt" },
         new { Text = "Promo Codes", Action = "Index", Controller = "PromoCode", Icon = "fa-ticket-alt" },
         new { Text = "Reviews", Action = "Index", Controller = "Reviews", Icon = "fa-star" },
         new { Text = "Reports", Action = "Index", Controller = "Report", Icon = "fa-comment-slash" },
-        // new { Text = "Used Promo Codes", Action = "Index", Controller = "UsedPromoCode", Icon = "fa-tags" },
         new { Text = "Sign out", Action = "Logout", Controller = "Account", Icon = "fa-arrow-right-from-bracket" }
     };
 
-    // For active link highlighting
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 }

@@ -16,7 +16,7 @@
                 @if (Model.Rooms.Any())
                 {
                     var newPrice = Model.Rooms.Min(r => r.PricePerNight);
-                    var oldPrice = newPrice + 90; // Old price is $90 more
+                    var oldPrice = newPrice + 90; 
 
                 <p class="card-text">
                     <span >starting from</span>
@@ -37,42 +37,4 @@
 
 
 
-
-@* 
-<div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-    <div class="media-1">
-        <a href="#" class="d-block mb-3"><img src="~/ProductsImages/pyramids.jpg" alt="Image" class="img-fluid"></a>
-
-        <span class="d-flex align-items-center loc mb-2">
-            <span class="icon-room mr-3"></span>
-            <span>@Model.city.Name</span>
-        </span>
-
-        <div class="d-flex align-items-center">
-            <div>
-                <h3><a href="#">@Model.Name</a></h3>
-                <div class="price ml-auto">
-                    @if (Model.Rooms.Any())
-                    {
-                        var newPrice = Model.Rooms.Min(r => r.PricePerNight);
-                        var oldPrice = newPrice + 90; // Old price is $90 more
-
-                        <p>
-                            <span>starting from</span>
-                            <span style="color: red; text-decoration: line-through;">$@oldPrice</span>
-                            <span class="fw-bold ms-2" style="color: green;">$@newPrice</span>
-                        </p>
-                    }
-                    else
-                    {
-                        <p >N/A</p>
-                    }
-                     <span>$@Model.</span> 
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</div> *@
 

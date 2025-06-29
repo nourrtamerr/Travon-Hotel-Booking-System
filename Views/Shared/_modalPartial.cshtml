@@ -19,27 +19,6 @@
     </div>
 </div>
 
-@* <script>
-    document.addEventListener("DOMContentLoaded", function () {
-         let modalElement = document.getElementById('imageModal');
-         let modalImage = document.getElementById('modalImage');
-         let bootstrapModal = new bootstrap.Modal(modalElement); // Initialize Bootstrap Modal
-
-         document.querySelectorAll('.img-clickable').forEach(img => {
-             img.addEventListener('click', function () {
-                 modalImage.src = this.getAttribute('data-src'); // Set modal image src
-                 bootstrapModal.show(); // Open the modal
-             });
-         });
-
-         // Close modal when clicking outside the image
-         modalElement.addEventListener('click', function (event) {
-             if (event.target === modalElement) {
-                 bootstrapModal.hide();
-             }
-         });
-     });
-</script> *@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let modalElement = document.getElementById('imageModal');

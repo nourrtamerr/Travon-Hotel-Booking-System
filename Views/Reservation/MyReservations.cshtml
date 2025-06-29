@@ -4,156 +4,6 @@
     ViewData["Title"] = "My Reservations";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            @await Html.PartialAsync("_ProfileSidebar",Model)
-        </div>
-        
-        
-        <div class="col-md-9">
-            @if (!Model.Any())
-            {
-                <div class="empty-message">
-                    You have no reservations yet.
-                </div>
-            }
-            else
-            {
-                            
-                <div class="traeReservations">
-
-
-                <div class="traeReservations__tableWrapper">
-                    <table class="traeReservations__table">
-                        <thead>
-                            <tr>
-                                    <th> <i class="fa-solid fa-hashtag"></i>ID</th>
-
-                                    <th> <i class="fa-solid fa-earth-americas"></i> Country</th>
-                                    <th> <i class="fa-solid fa-hotel"></i> Hotel</th>
-                                    <th><i class="fas fa-utensils"></i> Meal Plan</th>
-                                    <th> <i class="fas fa-concierge-bell"></i>Amenities</th>
-                                    <th> <i class="fas fa-calendar-check"></i>Check In</th>
-                                    <th> <i class="fas fa-calendar-times"></i>Check Out</th>
-                                    <th> <i class="fa-solid fa-spinner"></i>Status</th>
-                                @* <th>Cancellation Date</th> *@
-                                @* <th>Actions</th> *@
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr class="traeReservations__row">
-                                        <td>
-                                            <span class="traeReservations__mealPlan">
-
-                                                @item.Id
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="traeReservations__mealPlan">
-
-                                                @item.Reserved?.FirstOrDefault()?.Room?.Hotel?.city?.Country?.Name
-                                            </span>
-                                        </td>
-
-                                        <td>
-                                            <span class="traeReservations__mealPlan">
-
-                                                @item.Reserved?.FirstOrDefault()?.Room?.Hotel?.Name
-                                            </span>
-                                        </td>
-
-                                    <td>
-                                        <span class="traeReservations__mealPlan">
-                                            
-                                            @item.mealPlan?.plan
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="traeReservations__amenities">
-                                            
-                                            @item.amenity?.Amenities
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="traeReservations__date">
-                                            
-                                            @item.CheckInDate.ToString("MMM dd, yyyy")
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="traeReservations__date">
-                                            
-                                            @item.CheckOutDate.ToString("MMM dd, yyyy")
-                                        </span>
-                                    </td>
-                                    <td>
-                                        @* <span class="traeReservations__status traeReservations__status--@item.reservationStatus.ToString().ToLower()"> *@
-                                        @*     @item.reservationStatus *@
-                                        @* </span> *@
-
-
-                                        @* @if (item.reservationStatus != MVCBookingFinal_YARAB_.Models.ReservationStatus.Canceled &&  (item.CheckInDate - DateTime.Now).TotalDays > 3) *@
-                                        @* { *@
-                                        @*     <button class="cancel-res-btn styled-cancel-btn ms-2" title="Cancel Reservation" data-id="@item.Id"> *@
-                                        @*         <i class="fas fa-times-circle me-1"></i> Cancel *@
-                                        @*     </button> *@
-                                        @* } *@
-
-                                            <div class="status-action-group d-inline-flex align-items-center">
-                                                <span class="traeReservations__status traeReservations__status--@item.reservationStatus.ToString().ToLower()">
-                                                    @item.reservationStatus
-                                                </span>
-                                                @if (item.reservationStatus != MVCBookingFinal_YARAB_.Models.ReservationStatus.Canceled && (item.CheckInDate - DateTime.Now).TotalDays > 3)
-                                                {
-                                                    <button class="cancel-res-btn styled-cancel-btn ms-2" title="Cancel Reservation" data-id="@item.Id">
-                                                        <i class="fas fa-times-circle me-1"></i> Cancel
-                                                    </button>
-                                                }
-                                            </div>
-                                    </td>
-                                    @* <td> *@
-                                    @*     @if (item.CancellationDate.HasValue) *@
-                                    @*     { *@
-                                    @*         <span class="traeReservations__date traeReservations__date--cancelled"> *@
-                                    @*             <i class="fas fa-ban"></i> *@
-                                    @*             @item.CancellationDate.Value.ToString("MMM dd, yyyy") *@
-                                    @*         </span> *@
-                                    @*     } *@
-                                    @* </td> *@
-                                    @* <td> *@
-                                    @*     @if (item.reservationStatus == ReservationStatus.Pending) *@
-                                    @*     { *@
-                                    @*         <div class="traeReservations__actions"> *@
-                                    @*             <a asp-action="ContinuePayment" asp-controller="Reservation" asp-route-id="@item.Id" *@
-                                    @*                class="traeReservations__actionBtn"> *@
-                                    @*                 <i class="fas fa-check-circle"></i> *@
-                                    @*                 Confirm *@
-                                    @*             </a> *@
-                                    @*             <a asp-action="CancelReservation" asp-controller="Reservation" asp-route-id="@item.Id" *@
-                                    @*                class="traeReservations__actionBtn traeReservations__actionBtn--cancel"> *@
-                                    @*                 <i class="fas fa-times-circle"></i> *@
-                                    @*                 Cancel *@
-                                    @*             </a> *@
-                                    @*         </div> *@
-                                    @*     } *@
-                                    @* </td> *@
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            }
-        </div>
-    
-    
-    </div>
-</div>
-
-
 <style>
     .traeReservations {
         padding: 2rem;
@@ -360,6 +210,154 @@
 
 </style>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            @await Html.PartialAsync("_ProfileSidebar",Model)
+        </div>
+        
+        
+        <div class="col-md-9">
+            @if (!Model.Any())
+            {
+                <div class="empty-message">
+                    You have no reservations yet.
+                </div>
+            }
+            else
+            {
+                            
+                <div class="traeReservations">
+
+
+                <div class="traeReservations__tableWrapper">
+                    <table class="traeReservations__table">
+                        <thead>
+                            <tr>
+                                    <th> <i class="fa-solid fa-hashtag"></i>ID</th>
+
+                                    <th> <i class="fa-solid fa-earth-americas"></i> Country</th>
+                                    <th> <i class="fa-solid fa-hotel"></i> Hotel</th>
+                                    <th><i class="fas fa-utensils"></i> Meal Plan</th>
+                                    <th> <i class="fas fa-concierge-bell"></i>Amenities</th>
+                                    <th> <i class="fas fa-calendar-check"></i>Check In</th>
+                                    <th> <i class="fas fa-calendar-times"></i>Check Out</th>
+                                    <th> <i class="fa-solid fa-spinner"></i>Status</th>
+                                @* <th>Cancellation Date</th> *@
+                                @* <th>Actions</th> *@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="traeReservations__row">
+                                        <td>
+                                            <span class="traeReservations__mealPlan">
+
+                                                @item.Id
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="traeReservations__mealPlan">
+
+                                                @item.Reserved?.FirstOrDefault()?.Room?.Hotel?.city?.Country?.Name
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span class="traeReservations__mealPlan">
+
+                                                @item.Reserved?.FirstOrDefault()?.Room?.Hotel?.Name
+                                            </span>
+                                        </td>
+
+                                    <td>
+                                        <span class="traeReservations__mealPlan">
+                                            
+                                            @item.mealPlan?.plan
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="traeReservations__amenities">
+                                            
+                                            @item.amenity?.Amenities
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="traeReservations__date">
+                                            
+                                            @item.CheckInDate.ToString("MMM dd, yyyy")
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="traeReservations__date">
+                                            
+                                            @item.CheckOutDate.ToString("MMM dd, yyyy")
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @* <span class="traeReservations__status traeReservations__status--@item.reservationStatus.ToString().ToLower()"> *@
+                                        @*     @item.reservationStatus *@
+                                        @* </span> *@
+
+
+                                        @* @if (item.reservationStatus != MVCBookingFinal_YARAB_.Models.ReservationStatus.Canceled &&  (item.CheckInDate - DateTime.Now).TotalDays > 3) *@
+                                        @* { *@
+                                        @*     <button class="cancel-res-btn styled-cancel-btn ms-2" title="Cancel Reservation" data-id="@item.Id"> *@
+                                        @*         <i class="fas fa-times-circle me-1"></i> Cancel *@
+                                        @*     </button> *@
+                                        @* } *@
+
+                                            <div class="status-action-group d-inline-flex align-items-center">
+                                                <span class="traeReservations__status traeReservations__status--@item.reservationStatus.ToString().ToLower()">
+                                                    @item.reservationStatus
+                                                </span>
+                                                @if (item.reservationStatus != MVCBookingFinal_YARAB_.Models.ReservationStatus.Canceled && (item.CheckInDate - DateTime.Now).TotalDays > 3)
+                                                {
+                                                    <button class="cancel-res-btn styled-cancel-btn ms-2" title="Cancel Reservation" data-id="@item.Id">
+                                                        <i class="fas fa-times-circle me-1"></i> Cancel
+                                                    </button>
+                                                }
+                                            </div>
+                                    </td>
+                                    @* <td> *@
+                                    @*     @if (item.CancellationDate.HasValue) *@
+                                    @*     { *@
+                                    @*         <span class="traeReservations__date traeReservations__date--cancelled"> *@
+                                    @*             <i class="fas fa-ban"></i> *@
+                                    @*             @item.CancellationDate.Value.ToString("MMM dd, yyyy") *@
+                                    @*         </span> *@
+                                    @*     } *@
+                                    @* </td> *@
+                                    @* <td> *@
+                                    @*     @if (item.reservationStatus == ReservationStatus.Pending) *@
+                                    @*     { *@
+                                    @*         <div class="traeReservations__actions"> *@
+                                    @*             <a asp-action="ContinuePayment" asp-controller="Reservation" asp-route-id="@item.Id" *@
+                                    @*                class="traeReservations__actionBtn"> *@
+                                    @*                 <i class="fas fa-check-circle"></i> *@
+                                    @*                 Confirm *@
+                                    @*             </a> *@
+                                    @*             <a asp-action="CancelReservation" asp-controller="Reservation" asp-route-id="@item.Id" *@
+                                    @*                class="traeReservations__actionBtn traeReservations__actionBtn--cancel"> *@
+                                    @*                 <i class="fas fa-times-circle"></i> *@
+                                    @*                 Cancel *@
+                                    @*             </a> *@
+                                    @*         </div> *@
+                                    @*     } *@
+                                    @* </td> *@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            }
+        </div>
+    
+    
+    </div>
+</div>
 
 
 <script>

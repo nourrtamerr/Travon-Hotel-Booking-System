@@ -4,85 +4,6 @@
     Layout = "_AdminHome";
 }
 
-<div class="page-wrapper">
-    <div class="details-container">
-        <div class="header-section">
-            <div class="header-icon">
-                <i class="fas fa-ticket-alt"></i>
-            </div>
-            <h1 class="page-title">Promo Code Details</h1>
-        </div>
-
-        <div class="promo-details">
-            <div class="promo-card">
-                <div class="promo-header">
-                    <span class="promo-label">Promo Code</span>
-                    <span class="promo-code">@Model.Code</span>
-                </div>
-
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <div class="detail-icon">
-                            <i class="fas fa-toggle-on"></i>
-                        </div>
-                        <div class="detail-content">
-                            <span class="detail-label">Status</span>
-                            <span class="status-badge @(Model.IsActive ? "active" : "inactive")">
-                                @(Model.IsActive ? "Active" : "Inactive")
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="detail-item">
-                        <div class="detail-icon">
-                            <i class="fas fa-calendar"></i>
-                        </div>
-                        <div class="detail-content">
-                            <span class="detail-label">Expiry Date</span>
-                            <span class="detail-value">@Model.ExpiryDate.ToString("MMMM dd, yyyy")</span>
-                        </div>
-                    </div>
-
-                    <div class="detail-item">
-                        <div class="detail-icon">
-                            <i class="fas fa-percentage"></i>
-                        </div>
-                        <div class="detail-content">
-                            <span class="detail-label">Discount</span>
-                            <span class="detail-value discount">@Model.Discount%</span>
-                        </div>
-                    </div>
-
-                    <div class="detail-item">
-                        <div class="detail-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="detail-content">
-                            <span class="detail-label">Added By</span>
-                            <span class="detail-value">@Model.AddingUser.FirstName</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="action-buttons">
-
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-primary">
-                <i class="fas fa-edit"></i>
-                Edit
-            </a>
-
-            <a asp-action="Index" class="btn-secondary">
-                <i class="fas fa-arrow-left"></i>
-                Back to List
-            </a>
-            
-
-        </div>
-    </div>
-</div>
-
 <style>
     .page-wrapper {
         display: flex;
@@ -253,3 +174,84 @@
         background: #e2e6ea;
     }
 </style>
+
+
+<div class="page-wrapper">
+    <div class="details-container">
+        <div class="header-section">
+            <div class="header-icon">
+                <i class="fas fa-ticket-alt"></i>
+            </div>
+            <h1 class="page-title">Promo Code Details</h1>
+        </div>
+
+        <div class="promo-details">
+            <div class="promo-card">
+                <div class="promo-header">
+                    <span class="promo-label">Promo Code</span>
+                    <span class="promo-code">@Model.Code</span>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-toggle-on"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Status</span>
+                            <span class="status-badge @(Model.IsActive ? "active" : "inactive")">
+                                @(Model.IsActive ? "Active" : "Inactive")
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Expiry Date</span>
+                            <span class="detail-value">@Model.ExpiryDate.ToString("MMMM dd, yyyy")</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Discount</span>
+                            <span class="detail-value discount">@Model.Discount%</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Added By</span>
+                            <span class="detail-value">@Model.AddingUser.FirstName</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn-primary">
+                <i class="fas fa-edit"></i>
+                Edit
+            </a>
+
+            <a asp-action="Index" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to List
+            </a>
+            
+
+        </div>
+    </div>
+</div>
+

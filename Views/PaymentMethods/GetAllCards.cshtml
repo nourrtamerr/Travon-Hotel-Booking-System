@@ -4,94 +4,6 @@
     ViewData["Title"] = "GetAllCards";
 }
 
-<div class="payments-container">
-    <div class="header-section">
-        <div class="header-content">
-            <h1 class="page-title">Saved Payment Cards</h1>
-            <p class="page-subtitle">Manage your saved payment methods</p>
-        </div>
-        <div class="header-actions">
-            <a asp-action="CreateCard" class="create-btn">
-                <i class="fas fa-plus"></i>
-                Add New Card
-            </a>
-        </div>
-    </div>
-
-    <div class="table-container">
-        <table class="payments-table table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        <div class="th-content">
-                            <i class="fas fa-credit-card th-icon"></i>
-                            Card Number
-                        </div>
-                    </th>
-                    <th>
-                        <div class="th-content">
-                            <i class="fas fa-calendar th-icon"></i>
-                            Expiry Date
-                        </div>
-                    </th>
-                    <th>
-                        <div class="th-content">
-                            <i class="fas fa-lock th-icon"></i>
-                            CVV
-                        </div>
-                    </th>
-                    <th>
-                        <div class="th-content">
-                            <i class="fas fa-tag th-icon"></i>
-                            Type
-                        </div>
-                    </th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            <span class="card-number">
-                                <i class="fas fa-credit-card"></i>
-                                •••• •••• •••• @item.CardNumber.Substring(Math.Max(0, item.CardNumber.Length - 4))
-                            </span>
-                        </td>
-                        <td>@item.ExpiryDate.ToString("MM/yyyy")</td>
-                        <td>•••</td>
-                        <td>
-                            <span class="card-type">
-                                <i class="fas fa-credit-card"></i>
-                                Card
-                            </span>
-                        </td>
-                        <td>
-                            <div class="action-buttons">
-                                <a asp-action="GetCardMethodById" asp-route-id="@item.Id" class="action-link">
-                                    View
-                                </a>
-                                <span class="action-separator">•</span>
-                                <a asp-action="DeleteCardMethod" asp-route-id="@item.Id" class="action-link delete">
-                                    Delete
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-
-    <div class="footer-actions">
-        <a asp-action="Index" class="back-btn">
-            <i class="fas fa-arrow-left"></i>
-            Back to Payments
-        </a>
-    </div>
-</div>
-
 <style>
     .payments-container {
         background: white;
@@ -217,3 +129,93 @@
         font-size: 16px;
     }
 </style>
+
+
+<div class="payments-container">
+    <div class="header-section">
+        <div class="header-content">
+            <h1 class="page-title">Saved Payment Cards</h1>
+            <p class="page-subtitle">Manage your saved payment methods</p>
+        </div>
+        <div class="header-actions">
+            <a asp-action="CreateCard" class="create-btn">
+                <i class="fas fa-plus"></i>
+                Add New Card
+            </a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="payments-table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="th-content">
+                            <i class="fas fa-credit-card th-icon"></i>
+                            Card Number
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th-content">
+                            <i class="fas fa-calendar th-icon"></i>
+                            Expiry Date
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th-content">
+                            <i class="fas fa-lock th-icon"></i>
+                            CVV
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th-content">
+                            <i class="fas fa-tag th-icon"></i>
+                            Type
+                        </div>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <span class="card-number">
+                                <i class="fas fa-credit-card"></i>
+                                •••• •••• •••• @item.CardNumber.Substring(Math.Max(0, item.CardNumber.Length - 4))
+                            </span>
+                        </td>
+                        <td>@item.ExpiryDate.ToString("MM/yyyy")</td>
+                        <td>•••</td>
+                        <td>
+                            <span class="card-type">
+                                <i class="fas fa-credit-card"></i>
+                                Card
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a asp-action="GetCardMethodById" asp-route-id="@item.Id" class="action-link">
+                                    View
+                                </a>
+                                <span class="action-separator">•</span>
+                                <a asp-action="DeleteCardMethod" asp-route-id="@item.Id" class="action-link delete">
+                                    Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer-actions">
+        <a asp-action="Index" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Back to Payments
+        </a>
+    </div>
+</div>
+

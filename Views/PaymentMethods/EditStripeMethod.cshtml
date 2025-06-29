@@ -1,43 +1,31 @@
-﻿@* @model MVCBookingFinal_YARAB_.ViewModels.StripePaymentMethodViewModel
-
-@{
-    ViewData["Title"] = "EditStripeMethod";
-}
-
-<h1>EditStripeMethod</h1>
-
-<h4>StripePaymentMethodViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditStripeMethod">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="AccountNumber" class="control-label"></label>
-                <input asp-for="AccountNumber" class="form-control" />
-                <span asp-validation-for="AccountNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
- *@
+﻿
  @model MVCBookingFinal_YARAB_.ViewModels.StripePaymentMethodViewModel
 
 @{
     ViewData["Title"] = "Edit Payment Method";
 }
+
+<style>
+    .btn {
+        padding: 8px 20px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #0d6efd;
+    }
+
+    .input-group-text {
+        border: none;
+    }
+</style>
 
 <div class="container py-5">
     <div class="row justify-content-center">
@@ -84,27 +72,7 @@
     </div>
 </div>
 
-<style>
-    .btn {
-        padding: 8px 20px;
-        border-radius: 4px;
-        transition: all 0.3s ease;
-    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-    .form-control:focus {
-        box-shadow: none;
-        border-color: #0d6efd;
-    }
-
-    .input-group-text {
-        border: none;
-    }
-</style>
 
 @section Scripts {
     @{

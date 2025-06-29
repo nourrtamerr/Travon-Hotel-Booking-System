@@ -1,57 +1,44 @@
-﻿@* @model IEnumerable<MVCBookingFinal_YARAB_.Models.StripePaymentMethod>
-
-@{
-    ViewData["Title"] = "GetAllStripe";
-}
-
-<h1>GetAllStripe</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaymentType)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentType)
-            </td>
-            <td>
-                    <a asp-action="EditStripeMethod" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="GetStripeMethodById" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="DeleteStripeMethod" asp-route-id="@item.Id">Delete</a>
-
-
-
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-<a asp-action="Index">General Payments</a>
- *@
-
-
-
+﻿
  @model IEnumerable<MVCBookingFinal_YARAB_.Models.StripePaymentMethod>
 
 @{
     ViewData["Title"] = "Stripe Payment Methods";
 }
+
+<style>
+    .btn {
+        padding: 8px 20px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+    .btn-sm {
+        padding: 5px 10px;
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .table th {
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+    .badge {
+        padding: 8px 12px;
+        font-weight: 500;
+    }
+</style>
 
 <div class="container py-5">
     <div class="card shadow-lg" style="background-color: #f8f9fa; border: none;">
@@ -127,40 +114,7 @@
     </div>
 </div>
 
-<style>
-    .btn {
-        padding: 8px 20px;
-        border-radius: 4px;
-        transition: all 0.3s ease;
-    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-    .btn-sm {
-        padding: 5px 10px;
-    }
-
-    .table {
-        border-collapse: separate;
-        border-spacing: 0;
-    }
-
-        .table th {
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        .table td {
-            vertical-align: middle;
-        }
-
-    .badge {
-        padding: 8px 12px;
-        font-weight: 500;
-    }
-</style>
 
 @section Scripts {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
